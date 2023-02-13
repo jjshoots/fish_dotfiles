@@ -2,6 +2,9 @@
 set -g fish_term24bit 0
 set -g -x fish_greeting ''
 
+# disable pip outside of venv
+set -gx PIP_REQUIRE_VIRTUALENV true
+
 # STOP USING RM
 alias rm='echo "This is not the command you are looking for."; false'
 alias tp=trash-put
@@ -35,17 +38,3 @@ function vvim -d "Call neovim but also check if venv exists to source."
   end
 end
 
-# ensure venv activated before using pip
-function pip3 -w "pip3"
-  # compare the runtime to the expected one
-  if [ (which python3) != "/usr/bin/python3" ]
-    python3 -m pip $argv
-  else
-    echo "You are calling pip3 without using a virtual environment. This is not permitted."
-  end
-end
-
-# ensure override pip
-function ppip3
-    python3 -m pip $argv
-end
