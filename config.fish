@@ -1,3 +1,7 @@
+# add things to path
+set PATH $PATH ~/.cargo/bin
+
+
 # fish settings
 set -g fish_term24bit 0
 set -g -x fish_greeting ''
