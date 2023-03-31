@@ -1,6 +1,7 @@
 # add things to path
-set PATH $PATH ~/.cargo/bin
-
+if test -e ~/.cargo/bin
+  set PATH $PATH ~/.cargo/bin
+end
 
 # fish settings
 set -g fish_term24bit 0
