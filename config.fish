@@ -1,8 +1,3 @@
-# add things to path
-if test -e ~/.cargo/bin
-  set PATH $PATH ~/.cargo/bin
-end
-
 # fish settings
 set -g fish_term24bit 0
 set -g -x fish_greeting ''
@@ -43,3 +38,7 @@ function vvim -d "Call neovim but also check if venv exists to source."
   end
 end
 
+# add things to path
+if test -e ~/.cargo/bin
+  set PATH $PATH ~/.cargo/bin
+end
