@@ -5,6 +5,10 @@ set -g -x fish_greeting ''
 # disable pip outside of venv
 set -gx PIP_REQUIRE_VIRTUALENV true
 
+# set install location for gems
+set -gx GEM_HOME $HOME/System/gems
+set -gx PATH $HOME/System/gems/bin $PATH
+
 # STOP USING RM
 alias rm='echo "This is not the command you are looking for."; false'
 alias tp=trash-put
