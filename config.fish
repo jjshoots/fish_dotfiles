@@ -41,3 +41,11 @@ function vvim -d "Call neovim but also check if venv exists to source."
     nvim $argv
   end
 end
+
+# add some things to path
+if test -e ~/.local/bin
+  set PATH $PATH ~/.local/bin
+end
+if test -e ~/.cargo/bin
+  set PATH $PATH ~/.cargo/bin
+end
