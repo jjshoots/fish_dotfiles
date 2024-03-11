@@ -5,10 +5,6 @@ set -g -x fish_greeting ''
 # disable pip outside of venv
 set -gx PIP_REQUIRE_VIRTUALENV true
 
-# set install location for gems
-set -gx GEM_HOME $HOME/System/gems
-set -gx PATH $HOME/System/gems/bin $PATH
-
 # STOP USING RM
 alias rm='echo "This is not the command you are looking for."; false'
 alias tp=trash-put
@@ -42,10 +38,16 @@ function vvim -d "Call neovim but also check if venv exists to source."
   deactivate
 end
 
-# add some things to path
-if test -e ~/.local/bin
-  set PATH $PATH ~/.local/bin
+# python runtime paths
+if test -e $HOME/.local/bin
+  set -gx PATH $PATH $HOME/.local/bin
 end
-if test -e ~/.cargo/bin
-  set PATH $PATH ~/.cargo/bin
+# rust paths
+if test -e $HOME/.cargo/bin
+  set -gx PATH $PATH $HOME/.cargo/bin
+end
+# jekyll gems
+if test -e $HOME/System/gems
+  set -gx GEM_HOME $HOME/System/gems
+  set -gx PATH $PATH $HOME/System/gems/bin
 end
