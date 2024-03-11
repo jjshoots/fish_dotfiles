@@ -35,7 +35,9 @@ alias dv=deactivate
 function vvim -d "Call neovim but also check if venv exists to source."
   sv
   nvim $argv
-  deactivate
+  if set -q virtual_env
+    deactivate
+  end
 end
 
 # python runtime paths
