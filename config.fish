@@ -2,9 +2,6 @@
 set -g fish_term24bit 0
 set -g -x fish_greeting ''
 
-# disable pip outside of venv
-set -gx PIP_REQUIRE_VIRTUALENV true
-
 # STOP USING RM
 alias rm='echo "This is not the command you are looking for."; false'
 alias tp=trash-put
@@ -15,6 +12,9 @@ alias ls=exa\ --icons
 # tmux
 alias ta=tmux\ attach\ -t
 alias tk=tmux\ kill-session\ -t
+
+# disable pip outside of venv
+set -gx PIP_REQUIRE_VIRTUALENV true
 
 # python venv sourcing
 function sv -d "Sources a venv within the current directory."
