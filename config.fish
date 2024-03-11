@@ -21,25 +21,25 @@ alias ta=tmux\ attach\ -t
 alias tk=tmux\ kill-session\ -t
 
 # python venv sourcing
-alias sv=source\ venv/bin/activate.fish
+function sv -d "Sources a venv within the current directory."
+  # check if we have another venv sourced, if we do then deactivate
+  if set -q virtual_env
+    deactivate
+  end
+  # source the venv
+  if test -e ./venv/bin/activate.fish
+    source ./venv/bin/activate.fish
+  else if test -e ./.venv/bin/activate.fish
+    source ./.venv/bin/activate.fish
+  end
+end
 alias dv=deactivate
 
-# check for venv to source when nvim
+# nvim + venv
 function vvim -d "Call neovim but also check if venv exists to source."
-  # if a venv exists
-  if test -e ./venv/bin/activate.fish
-    # check if we have another venv sourced, if we do then deactivate
-    if set -q VIRTUAL_ENV
-      deactivate
-    end
-
-    # source the current venv, nvim, cleanup
-    source venv/bin/activate.fish
-    nvim $argv
-    deactivate
-  else
-    nvim $argv
-  end
+  sv
+  nvim $argv
+  deactivate
 end
 
 # add some things to path
