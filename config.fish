@@ -19,7 +19,7 @@ set -gx PIP_REQUIRE_VIRTUALENV true
 # python venv sourcing
 function sv -d "Sources a venv within the current directory."
   # check if we have another venv sourced, if we do then deactivate
-  if set -q virtual_env
+  if functions -q deactivate
     deactivate
   end
   # source the venv
@@ -35,7 +35,7 @@ alias dv=deactivate
 function vvim -d "Call neovim but also check if venv exists to source."
   sv
   nvim $argv
-  if set -q virtual_env
+  if functions -q deactivate
     deactivate
   end
 end
