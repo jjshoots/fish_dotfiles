@@ -35,21 +35,8 @@ for pattern in $exclude_patterns
 end
 
 # fzf + cd + directories only
-function cdd -d "Opens up fzf for directories only then navigates to it"
+function ccd -d "Opens up fzf for directories only then navigates to it"
   # Execute the find command, pipe to fzf, and change to the selected directory
   cd $(eval $find_command | fzf)
 end
-
-# fzf + nvim directories, amazing
-function vdd -d "Opens up fzf, then runs nvim at the destination directory if prompted"
-  set -l target_dir $(eval $find_command | fzf)
-  if test "$target_dir" != "."
-    echo "Press [y] to launch nvim!"
-    if read -l user_input; and test "$user_input" = "y"
-      vvim
-    end
-  end
-end
-
-
 
