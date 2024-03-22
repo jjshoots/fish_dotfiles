@@ -37,6 +37,10 @@ end
 # fzf + cd + directories only
 function ccd -d "Opens up fzf for directories only then navigates to it"
   # Execute the find command, pipe to fzf, and change to the selected directory
-  cd $(eval $find_command | fzf)
+  set -l target $(eval $find_command | fzf)
+  echo $target
+  if set -q target[1]
+    cd $target
+  end
 end
 
