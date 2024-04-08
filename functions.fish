@@ -54,11 +54,12 @@ function ccd -d "Opens up fzf for directories only then navigates to the chosen 
       echo "This is not a valid directory to ccd into."
       return
     end
+    # perform the find from this directory, so cd to it
     cd $argv[1]
   end
 
-  # Execute the find command, pipe to fzf, set the target dir
-  set target (limit_find | fzf)
+  # execute the find command, pipe to fzf, set the target dir
+  set -l target (limit_find | fzf)
 
   # target here is an ARRAY, so we use array-esque checks
   if set -q target[1]
@@ -66,6 +67,7 @@ function ccd -d "Opens up fzf for directories only then navigates to the chosen 
     echo $target
   else
     cd $start_dir
+    return
   end
 end
 
