@@ -29,13 +29,21 @@ set -l exclude_patterns \
   '*/venv/*' \
   '*/.venv/*' \
   '*/venv'
-set find_command "find . -maxdepth 3 -type d"
-for pattern in $exclude_patterns
-  set find_command "$find_command -not \( -path '$pattern' \)"
-end
 
 # fzf + cd + directories only
 function ccd -d "Opens up fzf for directories only then navigates to it."
+  # check if we have a directory, otherwise just use the current one
+  set -l base_dir "."
+  if set -q argv[1]
+    set base_dir $argv[1]
+  end
+
+  # update the find command and add all the exclusion patterns
+  set -l find_command "find $base_dir -maxdepth 3 -type d"
+  for pattern in $exclude_patterns
+    set find_command "$find_command -not \( -path '$pattern' \)"
+  end
+
   # Execute the find command, pipe to fzf, and change to the selected directory
   set -l target $(eval $find_command | fzf)
 
@@ -43,19 +51,16 @@ function ccd -d "Opens up fzf for directories only then navigates to it."
   if set -q target[1]
     cd $target
   end
+  echo $target
 end
 
 # fzf + tmux new sessions
 function tn -d "Opens FZF to select a directory, then opens a tmux session in that directory."
   # bootstrap off ccd command to find directories
-  ccd
-  set -l session_name (basename (pwd))
-
-  # if no session name, just return
-  # session name here is a STRING, hence the different check
-  if test -z "$session_name"
+  if test -z (ccd $argv)
     return
   end
+  set -l session_name (basename (pwd))
 
   # replace . with _
   set -l session_name (echo $session_name | sed 's/\./_/g')
