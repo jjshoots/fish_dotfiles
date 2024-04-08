@@ -57,6 +57,9 @@ function tn -d "Opens FZF to select a directory, then opens a tmux session in th
     return
   end
 
+  # replace . with _
+  set -l session_name (echo $session_name | sed 's/\./_/g')
+
   # if no tmux session, create it in the background
   if not tmux has-session -t $session_name >/dev/null 2>&1
     tmux new-session -d -s $session_name
