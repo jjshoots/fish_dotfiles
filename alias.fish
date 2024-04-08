@@ -4,7 +4,3 @@ alias tp=trash-put
 
 # change ls to exa
 alias ls=exa\ --icons
-
-# tmux
-alias ta=tmux\ attach\ -t
-alias tk=tmux\ kill-session\ -t
