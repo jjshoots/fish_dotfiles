@@ -22,16 +22,16 @@ function vvim -d "Call neovim but also check if venv exists to source."
   end
 end
 
-# Define the fzf find pattern
-set -l exclude_patterns \
-  '*/.*' \
-  '*/.git/*' \
-  '*/venv/*' \
-  '*/.venv/*' \
-  '*/venv'
-
 # fzf + cd + directories only
-function ccd -d "Opens up fzf for directories only then navigates to it."
+function ccd -d "Opens up fzf for directories only then navigates to the chosen directory"
+  # define the fzf exclusion patterns
+  set -l exclude_patterns \
+    '*/.*' \
+    '*/.git/*' \
+    '*/venv/*' \
+    '*/.venv/*' \
+    '*/venv'
+
   # check if we have a directory, otherwise just use the current one
   set -l base_dir "."
   if set -q argv[1]
