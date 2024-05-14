@@ -22,40 +22,65 @@ function vvim -d "Call neovim but also check if venv exists to source."
   end
 end
 
-# Define the fzf find pattern
-set -l exclude_patterns \
-  '*/.*' \
-  '*/.git/*' \
-  '*/venv/*' \
-  '*/.venv/*' \
-  '*/venv'
-set find_command "find . -maxdepth 3 -type d"
-for pattern in $exclude_patterns
-  set find_command "$find_command -not \( -path '$pattern' \)"
+# find command for fzf
+function limit_find -d "Performs a find with depth 3 and excludes various hidden files."
+  # define the find command
+  set -l find_command "find . -maxdepth 3 -type d"
+
+  # update the find command and exclusion patterns
+  set -l exclude_patterns \
+    '*/.*' \
+    '*/.git/*' \
+    '*/venv/*' \
+    '*/.venv/*' \
+    '*/venv'
+  for pattern in $exclude_patterns
+    set find_command "$find_command -not \( -path '$pattern' \)"
+  end
+
+  # evaluate the find command
+  eval "$find_command"
 end
 
 # fzf + cd + directories only
-function ccd -d "Opens up fzf for directories only then navigates to it."
-  # Execute the find command, pipe to fzf, and change to the selected directory
-  set -l target $(eval $find_command | fzf)
+function ccd -d "Opens up fzf for directories only then navigates to the chosen directory"
+  # store the current directory in case of cancellation
+  set -l start_dir (pwd)
+
+  # if we have a directory, cd into it
+  if set -q argv[1]
+    # if the directory is invalid just return
+    if not test -d $argv[1]
+      echo "This is not a valid directory to ccd into."
+      return
+    end
+    # perform the find from this directory, so cd to it
+    cd $argv[1]
+  end
+
+  # execute the find command, pipe to fzf, set the target dir
+  set -l target (limit_find | fzf)
 
   # target here is an ARRAY, so we use array-esque checks
   if set -q target[1]
     cd $target
+    echo $target
+  else
+    cd $start_dir
+    return
   end
 end
 
 # fzf + tmux new sessions
 function tn -d "Opens FZF to select a directory, then opens a tmux session in that directory."
   # bootstrap off ccd command to find directories
-  ccd
-  set -l session_name (basename (pwd))
-
-  # if no session name, just return
-  # session name here is a STRING, hence the different check
-  if test -z "$session_name"
+  if test -z (ccd $argv)
     return
   end
+  set -l session_name (basename (pwd))
+
+  # replace . with _
+  set -l session_name (echo $session_name | sed 's/\./_/g')
 
   # if no tmux session, create it in the background
   if not tmux has-session -t $session_name >/dev/null 2>&1
