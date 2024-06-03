@@ -20,4 +20,5 @@ sudo apt install exa
 sudo apt install resolvconf
 sudo apt install wireguard
 sudo apt install bat
+mkdir -p ~/.local/bin
 sudo ln -s /usr/bin/batcat ~/.local/bin/bat
