@@ -14,11 +14,11 @@ then
     sudo chsh -s /usr/bin/fish
 fi
 
-sudo apt install fzf
-sudo apt install trash-cli
-sudo apt install exa
-sudo apt install resolvconf
-sudo apt install wireguard
-sudo apt install bat
+sudo apt install fzf -y
+sudo apt install trash-cli -y
+sudo apt install exa -y
+sudo apt install resolvconf -y
+sudo apt install wireguard -y
+sudo apt install bat -y
 mkdir -p ~/.local/bin
 sudo ln -s /usr/bin/batcat ~/.local/bin/bat
