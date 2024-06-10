@@ -25,7 +25,7 @@ end
 # find command for fzf
 function limit_find -d "Performs a find with depth 3 and excludes various hidden files."
   # define the find command
-  set -l find_command "find . -maxdepth 3 -type d"
+  set -l find_command "find . -maxdepth 6 -type d"
 
   # update the find command and exclusion patterns
   set -l exclude_patterns \
