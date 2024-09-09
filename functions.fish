@@ -47,19 +47,14 @@ function ccd -d "Opens up fzf for directories only then navigates to the chosen 
   # store the current directory in case of cancellation
   set -l start_dir (pwd)
 
-  # if we have a directory, cd into it
+  # set up the initial query if a directory name is passed
+  set -l query ""
   if set -q argv[1]
-    # if the directory is invalid just return
-    if not test -d $argv[1]
-      echo "This is not a valid directory to ccd into."
-      return
-    end
-    # perform the find from this directory, so cd to it
-    cd $argv[1]
+    set query $argv[1]
   end
 
   # execute the find command, pipe to fzf, set the target dir
-  set -l target (limit_find | fzf)
+  set -l target (limit_find | fzf --query="$query")
 
   # target here is an ARRAY, so we use array-esque checks
   if set -q target[1]
