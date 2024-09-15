@@ -16,7 +16,7 @@ fi
 
 sudo apt install fzf -y
 sudo apt install trash-cli -y
-sudo apt install exa -y
+sudo apt install eza -y
 sudo apt install resolvconf -y
 sudo apt install wireguard -y
 sudo apt install bat -y
