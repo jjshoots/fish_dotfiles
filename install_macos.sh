@@ -32,7 +32,6 @@ fi
 
 # Install other tools
 brew install fzf
-brew install eza
 brew install bat
 
 # Create a symbolic link for bat if needed
