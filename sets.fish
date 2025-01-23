@@ -7,16 +7,26 @@ set -gx PIP_REQUIRE_VIRTUALENV true
 
 # python runtime paths
 if test -e $HOME/.local/bin
-  set -gx PATH $PATH $HOME/.local/bin
+    set -gx PATH $PATH $HOME/.local/bin
 end
 
 # rust paths
 if test -e $HOME/.cargo/bin
-  set -gx PATH $PATH $HOME/.cargo/bin
+    set -gx PATH $PATH $HOME/.cargo/bin
 end
 
 # jekyll gems
 if test -e $HOME/System/gems
-  set -gx GEM_HOME $HOME/System/gems
-  set -gx PATH $PATH $HOME/System/gems/bin
+    set -gx GEM_HOME $HOME/System/gems
+    set -gx PATH $PATH $HOME/System/gems/bin
+end
+
+# macOS (Apple Silicon) Homebrew path
+if test (uname -s) = "Darwin"
+    if test (uname -m) = "arm64"
+        if test -d /opt/homebrew/bin
+            echo "Adding Homebrew to PATH for Apple Silicon..."
+            set -gx PATH /opt/homebrew/bin $PATH
+        end
+    end
 end
