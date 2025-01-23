@@ -32,9 +32,7 @@ fi
 
 # Install other tools
 brew install fzf
-brew install trash-cli
 brew install eza
-brew install wireguard-tools
 brew install bat
 
 # Create a symbolic link for bat if needed
