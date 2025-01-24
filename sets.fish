@@ -5,9 +5,14 @@ set -g -x fish_greeting ''
 # disable pip outside of venv
 set -gx PIP_REQUIRE_VIRTUALENV true
 
+# Homebrew path
+if test -d /opt/homebrew/bin
+    set -gx PATH /opt/homebrew/bin $PATH
+end
+
 # python runtime paths
-if test -e $HOME/.local/bin
-    set -gx PATH $PATH $HOME/.local/bin
+if test -n "$VIRTUAL_ENV"
+    set -gx PATH "$VIRTUAL_ENV/bin" $PATH
 end
 
 # rust paths
@@ -19,9 +24,4 @@ end
 if test -e $HOME/System/gems
     set -gx GEM_HOME $HOME/System/gems
     set -gx PATH $PATH $HOME/System/gems/bin
-end
-
-# Homebrew path
-if test -d /opt/homebrew/bin
-    set -gx PATH /opt/homebrew/bin $PATH
 end
