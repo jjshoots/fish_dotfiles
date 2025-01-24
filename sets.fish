@@ -25,7 +25,6 @@ end
 if test (uname -s) = "Darwin"
     if test (uname -m) = "arm64"
         if test -d /opt/homebrew/bin
-            echo "Adding Homebrew to PATH for Apple Silicon..."
             set -gx PATH /opt/homebrew/bin $PATH
         end
     end
