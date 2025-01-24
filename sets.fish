@@ -21,11 +21,7 @@ if test -e $HOME/System/gems
     set -gx PATH $PATH $HOME/System/gems/bin
 end
 
-# macOS (Apple Silicon) Homebrew path
-if test (uname -s) = "Darwin"
-    if test (uname -m) = "arm64"
-        if test -d /opt/homebrew/bin
-            set -gx PATH /opt/homebrew/bin $PATH
-        end
-    end
+# Homebrew path
+if test -d /opt/homebrew/bin
+    set -gx PATH /opt/homebrew/bin $PATH
 end
