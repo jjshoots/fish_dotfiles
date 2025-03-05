@@ -33,6 +33,7 @@ fi
 # Install other tools
 brew install fzf
 brew install bat
+brew install wireguard-tools
 
 # Create a symbolic link for bat if needed
 if [ ! -L ~/.local/bin/bat ]; then
