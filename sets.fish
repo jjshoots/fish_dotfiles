@@ -2,6 +2,13 @@
 set -g fish_term24bit 0
 set -g -x fish_greeting ''
 
+# Load pyenv automatically by adding
+set -Ux PYENV_ROOT $HOME/.pyenv
+set -gx PATH $PYENV_ROOT/bin $PATH
+
+# Initialize pyenv
+status --is-interactive; and pyenv init - | source
+
 # disable pip outside of venv
 set -gx PIP_REQUIRE_VIRTUALENV true
 
