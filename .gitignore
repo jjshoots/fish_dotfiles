@@ -2,4 +2,6 @@
 !install.sh
 !.gitignore
 !*.fish
+!funcs/
+!funcs/**
 local.fish

@@ -7,3 +7,5 @@ for file in ~/.config/fish/*.fish
     source $file
   end
 end
+set -gx VOLTA_HOME "$HOME/.volta"
+set -gx PATH "$VOLTA_HOME/bin" $PATH
