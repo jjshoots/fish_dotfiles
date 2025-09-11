@@ -10,6 +10,3 @@ alias vpn-down "sudo wg-quick down wg0"
 
 # caffeinate
 alias caff "caffeinate -d"
-
-# Super agents
-alias super "~/.config/fish/funcs/super/super_agents.sh"
