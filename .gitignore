@@ -3,5 +3,5 @@
 !.gitignore
 !*.fish
 !funcs/
-!funcs/**
+!py_utils/
 local.fish
