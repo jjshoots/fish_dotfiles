@@ -20,7 +20,7 @@ class FileRequestHandler(http.server.SimpleHTTPRequestHandler):
         super().__init__(*args, **kwargs)
 
     def do_GET(self):
-        self.path = str(self.file_to_serve)
+        self.path = str(self.file_to_serve.resolve().absolute())
         return super().do_GET()
 
     def log_message(self, format, *args):
