@@ -19,9 +19,9 @@ class FileRequestHandler(http.server.SimpleHTTPRequestHandler):
         self.file_to_serve = file_path
         super().__init__(*args, **kwargs)
 
-    def do_GET(self):
-        self.path = str(self.file_to_serve.resolve().absolute())
-        return super().do_GET()
+    def translate_path(self, path):
+        """Always return the absolute path of the file to serve."""
+        return str(self.file_to_serve.resolve().absolute())
 
     def log_message(self, format, *args):
         """Override to provide cleaner logging."""
