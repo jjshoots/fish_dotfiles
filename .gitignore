@@ -1,6 +1,7 @@
 *
+!py_utils/
+!py_utils/**.py
 !install.sh
 !.gitignore
 !*.fish
-!py_utils/
 local.fish
