@@ -6,6 +6,7 @@ import signal
 import socket
 import socketserver
 import sys
+import threading
 from contextlib import closing, contextmanager
 from pathlib import Path
 from textwrap import dedent
@@ -55,8 +56,7 @@ def file_server(file_path: Path, port: int = 8080):
 
     def shutdown_handler(signum, frame):
         print("\n🛑 Shutting down server...")
-        server.shutdown()
-        sys.exit(0)
+        threading.Thread(target=server.shutdown).start()
 
     signal.signal(signal.SIGINT, shutdown_handler)
     signal.signal(signal.SIGTERM, shutdown_handler)
