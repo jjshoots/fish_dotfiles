@@ -121,5 +121,5 @@ function lan_share -d "Share a file on the local network using lan_share.py"
     return 1
   end
 
-  python3 /Users/jet/.config/fish/py_utils/lan_share.py $argv[1]
+  python3 $HOME/.config/fish/py_utils/lan_share.py $argv[1]
 end
